@@ -23,5 +23,4 @@ class ResizeObserverStub {
   unobserve() {}
   disconnect() {}
 }
-// @ts-expect-error - test-environment polyfill, not a real ResizeObserver
-window.ResizeObserver = window.ResizeObserver ?? ResizeObserverStub;
+window.ResizeObserver = window.ResizeObserver ?? (ResizeObserverStub as unknown as typeof ResizeObserver);
