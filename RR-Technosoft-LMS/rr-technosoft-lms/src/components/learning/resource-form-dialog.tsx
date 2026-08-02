@@ -135,7 +135,7 @@ export function ResourceFormDialog({ open, onOpenChange, resource, onSaved }: Re
             <div className="space-y-1.5">
               <Label htmlFor="file">File {resource?.fileUrl ? "(replace existing)" : ""}</Label>
               <Input id="file" type="file" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
-              <p className="text-xs text-muted-foreground">Upload now, or add the file later from the resource's row.</p>
+              <p className="text-xs text-muted-foreground">Upload now, or add the file later from the resource&apos;s row.</p>
             </div>
           )}
 

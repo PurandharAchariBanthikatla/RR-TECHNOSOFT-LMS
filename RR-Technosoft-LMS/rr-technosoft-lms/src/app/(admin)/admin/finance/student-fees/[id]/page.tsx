@@ -150,8 +150,6 @@ export default function AdminStudentFeeDetailPage() {
       setRefundAmount("");
       setRefundReason("");
       refetchAll();
-    } catch (err) {
-      toast.error(extractErrorMessage(err));
     } finally {
       setSubmitting(false);
     }
@@ -295,7 +293,7 @@ export default function AdminStudentFeeDetailPage() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Add a discount</DialogTitle>
-            <DialogDescription>Reduces the net payable amount for this student's fee.</DialogDescription>
+            <DialogDescription>Reduces the net payable amount for this student&apos;s fee.</DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-1.5">
@@ -423,26 +421,25 @@ export default function AdminStudentFeeDetailPage() {
               <Label htmlFor="refundReason">Reason</Label>
               <Textarea id="refundReason" rows={2} value={refundReason} onChange={(e) => setRefundReason(e.target.value)} />
             </div>
-          </div>
-          <DialogFooter>
             <Button variant="outline" onClick={() => setRefundTargetId(null)}>Cancel</Button>
             <Button variant="destructive" onClick={onRefund} disabled={submitting}>{submitting && <Loader2 className="h-4 w-4 animate-spin" />} Request refund</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
   );
 }
-
 function SummaryCard({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
   return (
     <Card>
       <CardHeader className="pb-2">
         <CardTitle className="text-xs font-medium text-muted-foreground">{label}</CardTitle>
       </CardHeader>
-      <CardContent>
         <p className={highlight ? "text-xl font-bold text-primary" : "text-xl font-bold"}>{value}</p>
-      </CardContent>
     </Card>
   );
-}
+}      </CardContent>
+      <CardContent>
+
+    </div>
+          <DialogFooter>
+

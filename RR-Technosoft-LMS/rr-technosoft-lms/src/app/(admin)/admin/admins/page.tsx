@@ -141,7 +141,7 @@ export default function AdminsPage() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Add an admin</DialogTitle>
-            <DialogDescription>They'll sign in with this email and password.</DialogDescription>
+            <DialogDescription>They&apos;ll sign in with this email and password.</DialogDescription>
           </DialogHeader>
           <form onSubmit={handleSubmit(onCreate)} className="space-y-4">
             <div className="space-y-1.5">

@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import Link from "next/link";
 import { Loader2, MailCheck } from "lucide-react";
@@ -7,12 +6,10 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSubmitting(true);
@@ -21,12 +18,11 @@ export default function ForgotPasswordPage() {
       await new Promise((resolve) => setTimeout(resolve, 800));
       setSent(true);
     } catch {
-      toast.error("Couldn't send the reset link. Please try again.");
+      toast.error("Couldn&apos;t send the reset link. Please try again.");
     } finally {
       setSubmitting(false);
     }
   }
-
   if (sent) {
     return (
       <div className="text-center">
@@ -35,7 +31,7 @@ export default function ForgotPasswordPage() {
         </div>
         <h1 className="font-display text-xl font-bold">Check your inbox</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          We've sent a password reset link to <span className="font-medium text-foreground">{email}</span>.
+          We&apos;ve sent a password reset link to <span className="font-medium text-foreground">{email}</span>.
         </p>
         <Link href="/login" className="mt-6 inline-block text-sm font-medium text-primary hover:underline">
           Back to sign in
@@ -43,12 +39,11 @@ export default function ForgotPasswordPage() {
       </div>
     );
   }
-
   return (
     <div>
       <h1 className="font-display text-2xl font-bold">Reset your password</h1>
       <p className="mt-1.5 text-sm text-muted-foreground">
-        Enter the email linked to your account and we'll send a reset link.
+        Enter the email linked to your account and we&apos;ll send a reset link.
       </p>
       <form onSubmit={handleSubmit} className="mt-7 space-y-4">
         <div className="space-y-1.5">

@@ -98,7 +98,7 @@ function ModuleAccordionList({ moduleList }: { courseId: string; moduleList: { i
 }
 
 // Re-export for potential direct lesson-row usage elsewhere
-export function LessonRow({ title, type, durationMinutes, completed }: { title: string; type: LessonType; durationMinutes: number; completed?: boolean }) {
+function LessonRow({ title, type, durationMinutes, completed }: { title: string; type: LessonType; durationMinutes: number; completed?: boolean }) {
   const Icon = LESSON_ICON[type];
   return (
     <div className="flex items-center justify-between rounded-md px-3 py-2 hover:bg-muted/50">
