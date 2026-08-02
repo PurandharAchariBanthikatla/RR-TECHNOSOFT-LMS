@@ -1,0 +1,45 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: "rr-technosoft-lms"
+
+rule_files:
+  - "alert.rules.yml"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: [] # add an Alertmanager target here if/when one is deployed
+
+scrape_configs:
+  # Spring Boot Actuator, exported in Prometheus text format via
+  # micrometer-registry-prometheus (see backend/pom.xml + application.yml).
+  - job_name: "rr-lms-backend"
+    metrics_path: "/api/v1/actuator/prometheus"
+    scrape_interval: 15s
+    static_configs:
+      - targets: ["backend:8080"]
+        labels:
+          service: "backend"
+          # NOTE: Prometheus's own YAML config does not expand ${VAR} shell-style
+          # substitution (unlike docker-compose.yml) — that only works for env vars
+          # passed to the container itself. If you need a per-environment label here,
+          # generate this file from a template at deploy time instead (e.g. envsubst
+          # in the CI/CD pipeline, or separate prometheus.yml per environment/overlay).
+          environment: "production"
+
+  # Prometheus scraping itself.
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  # Postgres/Redis exporters are not bundled by default (they need their own
+  # sidecar containers: postgres_exporter / redis_exporter). Uncomment and add
+  # those services to docker-compose.yml / k8s if deeper DB-level metrics are needed.
+  # - job_name: "postgres"
+  #   static_configs:
+  #     - targets: ["postgres-exporter:9187"]
+  # - job_name: "redis"
+  #   static_configs:
+  #     - targets: ["redis-exporter:9121"]

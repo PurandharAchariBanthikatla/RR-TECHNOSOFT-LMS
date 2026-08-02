@@ -1,0 +1,50 @@
+# Monitoring overlay — layer on top of the base stack:
+#   docker compose -f docker-compose.yml -f docker-compose.monitoring.yml up -d
+#
+# Kept separate from docker-compose.yml so environments that don't want the
+# extra memory footprint of Prometheus + Grafana can skip it entirely.
+name: rr-technosoft-lms
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.53.0
+    restart: unless-stopped
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./monitoring/prometheus/alert.rules.yml:/etc/prometheus/alert.rules.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=30d"
+      - "--web.enable-lifecycle"
+    ports:
+      - "9090:9090"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks: [lms-net]
+
+  grafana:
+    image: grafana/grafana:11.1.0
+    restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?set GRAFANA_ADMIN_PASSWORD in .env}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "3001:3000"
+    depends_on:
+      - prometheus
+    networks: [lms-net]
+
+volumes:
+  prometheus-data:
+  grafana-data:
+
+networks:
+  lms-net:
+    driver: bridge
