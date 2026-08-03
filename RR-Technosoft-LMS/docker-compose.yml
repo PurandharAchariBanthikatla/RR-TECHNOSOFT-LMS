@@ -54,7 +54,7 @@ services:
       JWT_SECRET: ${JWT_SECRET:?set a 256-bit+ JWT_SECRET in .env}
       JWT_ACCESS_EXPIRY: ${JWT_ACCESS_EXPIRY:-900000}
       JWT_REFRESH_EXPIRY: ${JWT_REFRESH_EXPIRY:-604800000}
-      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://13.201.69.114:3000}
       SMTP_HOST: ${SMTP_HOST:-}
       SMTP_PORT: ${SMTP_PORT:-587}
       SMTP_USERNAME: ${SMTP_USERNAME:-}
@@ -91,7 +91,7 @@ services:
       context: ./rr-technosoft-lms
       dockerfile: Dockerfile
       args:
-        NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://13.201.69.114:8081/api/v1}
+        NEXT_PUBLIC_API_BASE_URL: http://13.201.69.114:8081/api/v1
     restart: unless-stopped
     depends_on:
       backend:
