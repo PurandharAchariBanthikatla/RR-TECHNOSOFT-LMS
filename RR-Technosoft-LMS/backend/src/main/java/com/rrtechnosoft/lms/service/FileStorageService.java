@@ -27,7 +27,7 @@ import java.util.UUID;
  * object key is what's persisted in *_key columns so a fresh presigned URL
  * can be minted on read without re-uploading.
  */
-@Service
+@Service("generalFileStorageService")
 @RequiredArgsConstructor
 @Slf4j
 public class FileStorageService {

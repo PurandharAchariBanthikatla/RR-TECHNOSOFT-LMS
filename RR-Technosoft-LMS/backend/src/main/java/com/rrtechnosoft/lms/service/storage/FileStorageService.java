@@ -27,7 +27,7 @@ import java.time.Duration;
  * time-limited presigned URL rather than a permanent public link, so a
  * leaked/shared certificate link expires instead of staying valid forever.
  */
-@Service
+@Service("certificateFileStorageService")
 @RequiredArgsConstructor
 public class FileStorageService {
 

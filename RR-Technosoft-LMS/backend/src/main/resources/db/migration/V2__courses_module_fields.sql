@@ -16,7 +16,12 @@ ALTER TABLE courses
     ADD COLUMN rating NUMERIC(2,1);
 
 -- Backfill status from the old boolean, then drop it.
-UPDATE courses SET status = CASE WHEN is_published THEN 'PUBLISHED' ELSE 'DRAFT' END;
+UPDATE courses
+SET status =
+CASE
+WHEN is_published THEN 'PUBLISHED'::course_status
+ELSE 'DRAFT'::course_status
+END;
 ALTER TABLE courses DROP COLUMN is_published;
 
 -- duration_hours was never populated by any shipped code path; duration_weeks

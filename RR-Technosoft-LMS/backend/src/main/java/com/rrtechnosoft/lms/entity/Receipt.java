@@ -35,8 +35,7 @@ public class Receipt {
     @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal amount;
 
-    @Lob
-    @Column(name = "pdf_data")
+    @Column(name = "pdf_data", columnDefinition = "bytea")
     private byte[] pdfData;
 
     @CreationTimestamp
